@@ -43,5 +43,5 @@ message UpdatePostResponse {
 }
 
 message GetPostRequest {
-    bool id = 1;
+    string id = 1;
 }
