@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option go_package = "github.com/dezkoat/xcntn/proto";
+
+package content;
+
+import "google/protobuf/timestamp.proto";
+
+service Content {
+    // Insert new post, id should be left empty.
+    // Returns id of newly created post.
+    rpc InsertPost(Post) returns (InsertPostResponse) {}
+
+    // Update existing post, id must be filled.
+    // Returns update success status.
+    rpc UpdatePost(Post) returns (UpdatePostResponse) {}
+
+    // Get post by id.
+    // Returns Post object.
+    rpc GetPost(GetPostRequest) returns (Post) {}
+}
+
+message Post {
+    string id = 1;
+    string title = 2;
+    string text = 3;
+    Metadata metadata = 4;
+}
+
+message Metadata {
+    string created_by = 1;
+    google.protobuf.Timestamp created_at = 2;
+    string updated_by = 3;
+    google.protobuf.Timestamp updated_at = 4;
+}
+
+message InsertPostResponse {
+    string id = 1;
+}
+
+message UpdatePostResponse {
+    bool success = 1;
+}
+
+message GetPostRequest {
+    bool id = 1;
+}
